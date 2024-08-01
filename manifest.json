@@ -1,5 +1,5 @@
 {
-  "name": "New Tab - React",
+  "name": "Daily Brief",
   "version": "1.0.0",
   "manifest_version": 3,
   "chrome_url_overrides": {
