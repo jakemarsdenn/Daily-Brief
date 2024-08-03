@@ -1,0 +1,43 @@
+.checklist {
+    width: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #5193fc;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox:checked {
+    background-color: #5193fc;
+}
+
+.task-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: none;
+    font-size: 16px;
+    color: black;
+    outline: none;
+}
+
+.task-input::placeholder {
+    color: grey;
+}
+
+.checkbox:checked + .task-input {
+    color: grey;
+    text-decoration: none;
+}

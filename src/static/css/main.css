@@ -1,0 +1,20 @@
+:root {
+    --blocky: 'Space Grotesk', sans-serif;
+    --smooth: 'Metropolis', sans-serif;
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 50px;
+}
