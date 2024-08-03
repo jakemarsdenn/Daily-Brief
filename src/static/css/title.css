@@ -1,0 +1,26 @@
+#title {
+    color: transparent;
+    font-family: var(--blocky), serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 70px;
+    margin-top: 120px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.loading {
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from { color: transparent; }
+    to { color: black; }
+}
+
+#date {
+    color: black;
+    font-family: var(--smooth), serif;
+    font-size: 20px;
+    font-weight: 100;
+}
