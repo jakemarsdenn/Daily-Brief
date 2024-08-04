@@ -3,7 +3,7 @@
     font-family: var(--blocky), serif;
     font-weight: 600;
     font-style: normal;
-    font-size: 70px;
+    font-size: 75px;
     margin-top: 120px;
     margin-bottom: 30px;
     overflow: hidden;
@@ -21,6 +21,6 @@
 #date {
     color: black;
     font-family: var(--smooth), serif;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 100;
 }

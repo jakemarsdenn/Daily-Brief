@@ -18,14 +18,11 @@ function animateTitle() {
 
 function displayLocalDate() {
     const dateElement = document.getElementById("date");
-    const currentDate = new Date();
-    const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
-    const datePart = currentDate.toLocaleDateString(undefined, dateOptions);
-    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-    const timePart = currentDate.toLocaleTimeString(undefined, timeOptions);
-    const commaPosition = datePart.indexOf(' ');
-    const formattedDatePart = datePart.slice(0, commaPosition) + ',' + datePart.slice(commaPosition);
-    const formattedDateTime = `${formattedDatePart}, ${timePart}`;
-    dateElement.textContent = formattedDateTime;
+    const date = new Date();
+    const localTime = date.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+    const localDate = date.toLocaleDateString('en-US', { day: 'numeric', month: 'long' });
+    const localDay = date.toLocaleDateString('en-US', { weekday: 'long' });
+    dateElement.textContent = localDay + ", " + localDate + ", " + localTime
+    setTimeout(displayLocalDate, 1000);
 }
 
