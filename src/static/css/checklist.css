@@ -41,3 +41,97 @@
     color: grey;
     text-decoration: none;
 }
+
+.toolbar {
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    border-style: solid;
+    border-color: #e0e0e0;
+    border-width: thin;
+    border-radius: 12px;
+    box-shadow: 4px 4px 10px #c5c5c5, -6px -6px 12px #ffffff;
+    display: flex;
+    align-items: center;
+    height: 25px;
+}
+
+.colour-button {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.colour-button:hover {
+    border: 1px solid white;
+}
+
+.color-black { background-color: rgb(35,37,41); }
+.color-grey { background-color: rgb(92,94,98); }
+.color-red { background-color: rgb(240,85,77); }
+.color-pink { background-color: rgb(227,79,121); }
+.color-orange { background-color: rgb(237,138,57); }
+.color-yellow { background-color: rgb(247,192,52); }
+.color-green { background-color: rgb(69,222,130); }
+.color-light-blue { background-color: rgb(80,194,242); }
+.color-dark-blue { background-color: rgb(48,102,240); }
+.color-purple { background-color: rgb(124,83,237); }
+
+.icon {
+    width: 1.1em;
+    height: 1.1em;
+    background-color: white;
+}
+
+.icon-button {
+    background-color: white;
+    color: black;
+    font-family: var(--smooth), serif;
+    font-size: 18px;
+    font-weight: 100;
+    border: none;
+    cursor: pointer;
+}
+
+.icon-button:first-child {
+    position: relative;
+    margin-left: 20px;
+}
+
+.text-button {
+    background-color: white;
+    color: black;
+    font-family: var(--smooth), serif;
+    font-size: 18px;
+    font-weight: 100;
+    border: none;
+    vertical-align: 0.2em;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+#text-indicator {
+    background-color: white;
+    color: black;
+    font-family: var(--smooth), serif;
+    font-size: 18px;
+    font-weight: 100;
+    border: none;
+    vertical-align: 0.3em;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: default;
+}
+
+#text-indicator::after {
+    content: '|';
+    color: lightgrey;
+    font-size: 25px;
+    vertical-align: -0.1em;
+    margin-left: 10px;
+    margin-right: 10px;
+}
