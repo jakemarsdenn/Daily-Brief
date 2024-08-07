@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const taskInput = item.querySelector('.task-input');
             return {
                 checked: checkbox.checked,
-                text: taskInput.value
+                text: taskInput.value,
+                color: window.getComputedStyle(taskInput).color
             };
         });
         // Store checklist state with Web Storage API
@@ -112,12 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Retrieve checklist state with Web Storage API
         const savedItems = JSON.parse(localStorage.getItem('checklist'));
         if (savedItems) {
-            savedItems.forEach(({ checked, text }) => {
+            savedItems.forEach(({ checked, text, color }) => {
                 const newItem = document.createElement('div');
                 newItem.classList.add('checklist-item');
                 newItem.innerHTML = `
                     <input type="checkbox" class="checkbox" ${checked ? 'checked' : ''}>
-                    <input type="text" class="task-input" placeholder="Task" value="${text}">
+                    <input type="text" class="task-input" placeholder="Task" value="${text}" style="color: ${color}">
                 `;
                 checklist.appendChild(newItem);
             });
@@ -143,19 +144,29 @@ document.addEventListener('DOMContentLoaded', () => {
         topToolbar.style.display = 'block';
         bottomToolbar.style.display = 'block';
 
+        const handleColorChange = (event) => {
+            if (event.target.classList.contains('colour-button')) {
+                const selectedColor = window.getComputedStyle(event.target).backgroundColor;
+                taskInput.style.color = selectedColor;
+                console.log("colour changed to " + selectedColor);
+                saveChecklist();
+            }
+        };
+        document.removeEventListener('click', handleColorChange);
+        document.addEventListener('click', handleColorChange);
+
         function hideToolbar(e) {
             if ((!topToolbar.contains(e.target) && e.target !== taskInput) ||
-                (!bottomToolbar.contains(e.target) && e.target !== taskInput) || e.type === 'keydown'){
+                (!bottomToolbar.contains(e.target) && e.target !== taskInput) || e.type === 'keydown') {
                 topToolbar.style.display = 'none';
                 bottomToolbar.style.display = 'none';
                 document.removeEventListener('click', hideToolbar);
+                document.removeEventListener('click', handleColorChange);
             }
         }
         document.addEventListener('click', hideToolbar);
         document.addEventListener('keydown', hideToolbar);
     }
 
+
 });
-
-
-
