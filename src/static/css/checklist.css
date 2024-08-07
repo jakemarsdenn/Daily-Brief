@@ -80,13 +80,13 @@
 .color-dark-blue { background-color: rgb(48,102,240); }
 .color-purple { background-color: rgb(124,83,237); }
 
-.icon {
+.button-icon {
     width: 1.1em;
     height: 1.1em;
     background-color: white;
 }
 
-.icon-button {
+.style-button {
     background-color: white;
     color: black;
     font-family: var(--smooth), serif;
@@ -96,7 +96,7 @@
     cursor: pointer;
 }
 
-.icon-button:first-child {
+.style-button:first-child {
     position: relative;
     margin-left: 20px;
 }
