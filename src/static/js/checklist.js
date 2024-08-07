@@ -175,21 +175,22 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Style button clicked: ${e.currentTarget.id}`);
             switch (e.currentTarget.id) {
                 case 'bold-button':
-                    activeTaskInput.style.fontWeight = 'bold';
+                    activeTaskInput.style.fontWeight = activeTaskInput.style.fontWeight === 'bold' ? 'normal' : 'bold';
                     break;
                 case 'italics-button':
-                    activeTaskInput.style.fontStyle = 'italic';
+                    activeTaskInput.style.fontStyle = activeTaskInput.style.fontStyle === 'italic' ? 'normal' : 'italic';
                     break;
                 case 'underline-button':
-                    activeTaskInput.style.textDecoration = 'underline';
+                    activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'underline' ? 'none' : 'underline';
                     break;
                 case 'strikethrough-button':
-                    activeTaskInput.style.textDecoration = 'line-through';
+                    activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'line-through' ? 'none' : 'line-through';
                     break;
             }
             saveChecklist();
         }
     }
+
     document.querySelectorAll('.button-icon').forEach(button => {
         button.addEventListener('click', handleStyleChange);
     });
