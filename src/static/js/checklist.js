@@ -57,6 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Restore the stored color and decoration when unchecked
                 taskInput.style.color = taskInput.dataset.originalColor;
                 taskInput.style.textDecoration = taskInput.dataset.originalDecoration;
+
+                // handle bug where grey stays grey
+                if (taskInput.style.color === 'rgb(128, 128, 128)'){
+                    taskInput.style.color = 'black';
+                }
             }
             saveChecklist();
         }
@@ -113,12 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
                 checked: checkbox.checked,
                 text: taskInput.value,
-                color: window.getComputedStyle(taskInput).color,
+                color: taskInput.style.color,
                 fontWeight: taskInput.style.fontWeight,
                 fontStyle: taskInput.style.fontStyle,
                 textDecoration: taskInput.style.textDecoration
             };
         });
+
         // Store checklist state with Web Storage API
         localStorage.setItem('checklist', JSON.stringify(items));
     }
@@ -160,10 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         topToolbar.style.display = 'block';
         bottomToolbar.style.display = 'block';
-
-        console.log("Font weight: " + taskInput.style.fontWeight +
-                    ", Style: " + taskInput.style.style +
-                    ", Decoration: " + taskInput.style.textDecoration)
 
         updateButtonStatus();
     }
