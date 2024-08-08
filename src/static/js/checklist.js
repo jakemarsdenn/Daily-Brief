@@ -46,12 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('checkbox')) {
             const taskInput = e.target.nextElementSibling;
             if (e.target.checked) {
-                // Store the current color before changing to grey
+                // Store the current color and decoration before making changes
                 taskInput.dataset.originalColor = window.getComputedStyle(taskInput).color;
+                taskInput.dataset.originalDecoration = window.getComputedStyle(taskInput).textDecoration;
+                taskInput.style.textDecoration = 'line-through';
                 taskInput.style.color = 'grey';
             } else {
-                // Restore the stored color when unchecked
+                // Restore the stored color and decoration when unchecked
                 taskInput.style.color = taskInput.dataset.originalColor;
+                taskInput.style.textDecoration = taskInput.dataset.originalDecoration;
             }
             saveChecklist();
         }
@@ -182,9 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 case 'underline-button':
                     activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'underline' ? 'none' : 'underline';
-                    break;
-                case 'strikethrough-button':
-                    activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'line-through' ? 'none' : 'line-through';
                     break;
             }
             saveChecklist();
