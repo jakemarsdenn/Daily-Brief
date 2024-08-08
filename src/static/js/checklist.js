@@ -106,7 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
             targetItem = currentItem.nextElementSibling;
         }
         if (targetItem) {
-            targetItem.querySelector('.task-input').focus();
+            const targetInput = targetItem.querySelector('.task-input');
+            targetInput.focus();
+            // Set the cursor to the end of the input text
+            targetInput.setSelectionRange(targetInput.value.length, targetInput.value.length);
         }
     }
 
