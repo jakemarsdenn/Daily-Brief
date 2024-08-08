@@ -41,16 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // needs improvement
     checklist.addEventListener('change', (e) => {
         if (e.target.classList.contains('checkbox')) {
             const taskInput = e.target.nextElementSibling;
+
             if (e.target.checked) {
                 // Store the current color and decoration before making changes
                 taskInput.dataset.originalColor = window.getComputedStyle(taskInput).color;
                 taskInput.dataset.originalDecoration = window.getComputedStyle(taskInput).textDecoration;
+
                 taskInput.style.textDecoration = 'line-through';
                 taskInput.style.color = '#AEB1B5';
+
             } else {
                 // Restore the stored color and decoration when unchecked
                 taskInput.style.color = taskInput.dataset.originalColor;
@@ -156,21 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomToolbar.style.top = `${top + 95}px`;
         bottomToolbar.style.left = `${left + 35}px`;
 
-        toggleButtonColour('bold-button', 'white')
-        toggleButtonColour('italics-button', 'white')
-        toggleButtonColour('underline-button', 'white')
-        if (taskInput.style.fontWeight === 'bold'){
-            toggleButtonColour('bold-button', '#E8E8E8')
-        }
-        if (taskInput.style.fontStyle === 'italic'){
-            toggleButtonColour('italics-button', '#E8E8E8')
-        }
-        if (taskInput.style.textDecoration === 'underline'){
-            toggleButtonColour('underline-button', '#E8E8E8')
-        }
-
         topToolbar.style.display = 'block';
         bottomToolbar.style.display = 'block';
+
+        console.log("Font weight: " + taskInput.style.fontWeight +
+                    ", Style: " + taskInput.style.style +
+                    ", Decoration: " + taskInput.style.textDecoration)
+
+        updateButtonStatus();
     }
 
 
@@ -199,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'underline' ? 'none' : 'underline';
                     break;
             }
+            updateButtonStatus();
             saveChecklist();
         }
     }
@@ -207,8 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    function toggleButtonColour(button, colour) {
-        document.getElementById(button).style.backgroundColor = colour;
+    function updateButtonStatus() {
+        const isBold = activeTaskInput.style.fontWeight === 'bold';
+        const isItalic = activeTaskInput.style.fontStyle === 'italic';
+        const isUnderline = activeTaskInput.style.textDecoration.includes('underline');
+
+        // If style matches, make button background grey, otherwise, make it white
+        document.getElementById('bold-button').style.backgroundColor = isBold ? '#E8E8E8' : 'white';
+        document.getElementById('italics-button').style.backgroundColor = isItalic ? '#E8E8E8' : 'white';
+        document.getElementById('underline-button').style.backgroundColor = isUnderline ? '#E8E8E8' : 'white';
     }
 
 
