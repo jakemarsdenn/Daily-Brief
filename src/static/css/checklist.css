@@ -81,9 +81,9 @@
 .color-purple { background-color: rgb(124,83,237); }
 
 .button-icon {
+    background-color: transparent;
     width: 1.1em;
     height: 1.1em;
-    background-color: white;
     pointer-events: none;
 }
 
@@ -94,7 +94,11 @@
     font-size: 18px;
     font-weight: 100;
     border: black;
+    border-radius: 6px;
     cursor: pointer;
+    padding: 0.4em;
+    box-sizing: border-box;
+    margin-top: -6.5px;
 }
 
 .text-button {
@@ -104,10 +108,10 @@
     font-size: 18px;
     font-weight: 100;
     border: none;
-    vertical-align: 0.2em;
     margin-left: 5px;
     margin-right: 5px;
     cursor: pointer;
+    vertical-align: 0.2em;
 }
 
 #text-indicator {

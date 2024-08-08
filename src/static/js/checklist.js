@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 taskInput.dataset.originalColor = window.getComputedStyle(taskInput).color;
                 taskInput.dataset.originalDecoration = window.getComputedStyle(taskInput).textDecoration;
                 taskInput.style.textDecoration = 'line-through';
-                taskInput.style.color = 'grey';
+                taskInput.style.color = '#AEB1B5';
             } else {
                 // Restore the stored color and decoration when unchecked
                 taskInput.style.color = taskInput.dataset.originalColor;
@@ -156,6 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomToolbar.style.top = `${top + 95}px`;
         bottomToolbar.style.left = `${left + 35}px`;
 
+        toggleButtonColour('bold-button', 'white')
+        toggleButtonColour('italics-button', 'white')
+        toggleButtonColour('underline-button', 'white')
+        if (taskInput.style.fontWeight === 'bold'){
+            toggleButtonColour('bold-button', '#E8E8E8')
+        }
+        if (taskInput.style.fontStyle === 'italic'){
+            toggleButtonColour('italics-button', '#E8E8E8')
+        }
+        if (taskInput.style.textDecoration === 'underline'){
+            toggleButtonColour('underline-button', '#E8E8E8')
+        }
+
         topToolbar.style.display = 'block';
         bottomToolbar.style.display = 'block';
     }
@@ -175,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleStyleChange(e) {
         if (activeTaskInput && e.currentTarget.classList.contains('style-button')) {
-            console.log(`Style button clicked: ${e.currentTarget.id}`);
             switch (e.currentTarget.id) {
                 case 'bold-button':
                     activeTaskInput.style.fontWeight = activeTaskInput.style.fontWeight === 'bold' ? 'normal' : 'bold';
@@ -195,9 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    function toggleButtonColour(button, colour) {
+        document.getElementById(button).style.backgroundColor = colour;
+    }
+
+
     function hideToolbar(e) {
-        if ((!topToolbar.contains(e.target) && e.target !== activeTaskInput) ||
-            (!bottomToolbar.contains(e.target) && e.target !== activeTaskInput) || e.type === 'keydown') {
+        if ((topToolbar.style.display === 'block' || bottomToolbar.style.display === 'block') &&
+            (!topToolbar.contains(e.target) && !bottomToolbar.contains(e.target) && e.target !== activeTaskInput) ||
+            e.type === 'keydown') {
             topToolbar.style.display = 'none';
             bottomToolbar.style.display = 'none';
             activeTaskInput = null;
