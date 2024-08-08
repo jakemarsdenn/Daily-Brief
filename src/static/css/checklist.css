@@ -84,6 +84,7 @@
     width: 1.1em;
     height: 1.1em;
     background-color: white;
+    pointer-events: none;
 }
 
 .style-button {
@@ -92,13 +93,8 @@
     font-family: var(--smooth), serif;
     font-size: 18px;
     font-weight: 100;
-    border: none;
+    border: black;
     cursor: pointer;
-}
-
-.style-button:first-child {
-    position: relative;
-    margin-left: 20px;
 }
 
 .text-button {

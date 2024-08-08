@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function handleStyleChange(e) {
-        if (activeTaskInput && e.currentTarget.classList.contains('button-icon')) {
+        if (activeTaskInput && e.currentTarget.classList.contains('style-button')) {
             console.log(`Style button clicked: ${e.currentTarget.id}`);
             switch (e.currentTarget.id) {
                 case 'bold-button':
@@ -190,8 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveChecklist();
         }
     }
-
-    document.querySelectorAll('.button-icon').forEach(button => {
+    document.querySelectorAll('.style-button').forEach(button => {
         button.addEventListener('click', handleStyleChange);
     });
 
