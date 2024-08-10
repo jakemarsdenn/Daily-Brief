@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 checklist.appendChild(newItem);
             });
         }
+        updateProgressBar();
     }
 
 
@@ -44,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 textDecoration: taskInput.style.textDecoration
             };
         });
-
         // Store checklist state with Web Storage API
         localStorage.setItem('checklist', JSON.stringify(items));
     }
@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 taskInput.style.textDecoration = taskInput.dataset.originalDecoration || 'none';
             }
 
+            updateProgressBar()
             updateStyleButtonsStatus();
             saveChecklist();
         }
@@ -251,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
             }
             updateStyleButtonsStatus();
+            updateProgressBar();
             saveChecklist();
         }
     }
@@ -288,7 +290,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    window.onbeforeunload = function(e) {
-        saveChecklist(e);
+    function updateProgressBar() {
+        const items = checklist.children.length;
+        const checkedItems = Array.from(checklist.children).filter(item => item.querySelector('.checkbox').checked).length;
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.value = checkedItems;
+        progressBar.max = items;
+    }
+
+
+    window.onbeforeunload = function() {
+        saveChecklist();
     };
 });

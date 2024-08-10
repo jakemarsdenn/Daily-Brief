@@ -18,3 +18,19 @@ body {
     justify-content: flex-start;
     padding-top: 50px;
 }
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+#home-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 50px;
+    margin-left: 70px;
+}

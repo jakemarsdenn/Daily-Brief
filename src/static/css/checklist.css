@@ -1,7 +1,6 @@
 #checklist {
     width: 300px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 30px;
 }
 
 .checklist-item {
@@ -40,6 +39,36 @@
 .checkbox:checked + .task-input {
     color: grey;
     text-decoration: none;
+}
+
+#progress-container {
+    margin-top: 60px;
+    text-align: center;
+}
+
+#progress-bar {
+    width: 300px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background-color: #f3f3f3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    appearance: none;
+}
+
+#progress-bar::-webkit-progress-bar {
+    border-radius: 12px;
+    background-color: #f3f3f3;
+}
+
+#progress-bar::-webkit-progress-value {
+    border-radius: 12px;
+    background-color: #4caf50;
+}
+
+#progress-bar::-moz-progress-bar {
+    border-radius: 12px;
+    background-color: #4caf50;
 }
 
 .toolbar {
