@@ -7,6 +7,74 @@ document.addEventListener('DOMContentLoaded', () => {
     loadChecklist();
 
 
+    function loadChecklist() {
+        checklist.innerHTML = '';
+        // Retrieve checklist state with Web Storage API
+        const savedItems = JSON.parse(localStorage.getItem('checklist'));
+
+        if (savedItems) {
+            savedItems.forEach(({ checked, text, color, fontWeight, fontStyle, textDecoration }) => {
+                const newItem = document.createElement('div');
+                newItem.classList.add('checklist-item');
+                newItem.innerHTML = `
+                <input type="checkbox" class="checkbox" name="checkbox" ${checked ? 'checked' : ''}>
+                <input type="text" class="task-input" name="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
+                font-weight: ${fontWeight}; font-style: ${fontStyle}; text-decoration: ${textDecoration}">
+            `;
+                checklist.appendChild(newItem);
+            });
+        }
+    }
+
+
+    function saveChecklist() {
+        const items = Array.from(checklist.children).map(item => {
+            const checkbox = item.querySelector('.checkbox');
+            const taskInput = item.querySelector('.task-input');
+            return {
+                checked: checkbox.checked,
+                text: taskInput.value,
+                color: taskInput.style.color,
+                fontWeight: taskInput.style.fontWeight,
+                fontStyle: taskInput.style.fontStyle,
+                textDecoration: taskInput.style.textDecoration
+            };
+        });
+
+        // Store checklist state with Web Storage API
+        localStorage.setItem('checklist', JSON.stringify(items));
+    }
+
+
+    function addChecklistItem(currentInput) {
+        const newItem = document.createElement('div');
+        newItem.classList.add('checklist-item');
+        newItem.innerHTML = `
+            <input type="checkbox" class="checkbox" name="checkbox">
+            <input type="text" class="task-input" name="task-input" placeholder="Task">
+        `;
+        checklist.insertBefore(newItem, currentInput.parentElement.nextSibling);
+        newItem.querySelector('.task-input').focus();
+        saveChecklist();
+    }
+
+
+    function deleteChecklistItem(currentInput) {
+        const currentItem = currentInput.parentElement;
+        const previousItem = currentItem.previousElementSibling;
+
+        if (previousItem) {
+            const previousInput = previousItem.querySelector('.task-input');
+            previousInput.focus();
+            previousInput.setSelectionRange(previousInput.value.length, previousInput.value.length);
+        }
+        if (checklist.children.length > 1) {
+            currentItem.remove();
+            saveChecklist();
+        }
+    }
+
+
     checklist.addEventListener('keydown', (e) => {
         const currentInput = e.target;
         if (e.target.classList.contains('task-input')) {
@@ -41,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    checklist.addEventListener('change', (e) => {
+    function handleCheckboxChange(e) {
         if (e.target.classList.contains('checkbox')) {
             const taskInput = e.target.nextElementSibling;
 
@@ -55,46 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else {
                 // Restore the stored color and decoration when unchecked
-                taskInput.style.color = taskInput.dataset.originalColor;
-                taskInput.style.textDecoration = taskInput.dataset.originalDecoration;
+                taskInput.style.color = taskInput.dataset.originalColor || 'black';
+                taskInput.style.textDecoration = taskInput.dataset.originalDecoration || 'none';
 
-                // handle bug where grey stays grey
-                if (taskInput.style.color === 'rgb(128, 128, 128)'){
+                // Handle bug where grey stays grey
+                if (taskInput.style.color === 'rgb(128, 128, 128)') {
                     taskInput.style.color = 'black';
                 }
             }
             saveChecklist();
         }
-    });
-
-
-    function addChecklistItem(currentInput) {
-        const newItem = document.createElement('div');
-        newItem.classList.add('checklist-item');
-        newItem.innerHTML = `
-            <input type="checkbox" class="checkbox" name="checkbox">
-            <input type="text" class="task-input" name="task-input" placeholder="Task">
-        `;
-        checklist.insertBefore(newItem, currentInput.parentElement.nextSibling);
-        newItem.querySelector('.task-input').focus();
-        saveChecklist();
     }
-
-
-    function deleteChecklistItem(currentInput) {
-        const currentItem = currentInput.parentElement;
-        const previousItem = currentItem.previousElementSibling;
-
-        if (previousItem) {
-            const previousInput = previousItem.querySelector('.task-input');
-            previousInput.focus();
-            previousInput.setSelectionRange(previousInput.value.length, previousInput.value.length);
-        }
-        if (checklist.children.length > 1) {
-            currentItem.remove();
-            saveChecklist();
-        }
-    }
+    checklist.addEventListener('change', handleCheckboxChange);
 
 
     function navigateChecklist(currentInput, direction) {
@@ -110,46 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
             targetInput.focus();
             // Set the cursor to the end of the input text
             targetInput.setSelectionRange(targetInput.value.length, targetInput.value.length);
-        }
-    }
-
-
-    function saveChecklist() {
-        const items = Array.from(checklist.children).map(item => {
-            const checkbox = item.querySelector('.checkbox');
-            const taskInput = item.querySelector('.task-input');
-            return {
-                checked: checkbox.checked,
-                text: taskInput.value,
-                color: taskInput.style.color,
-                fontWeight: taskInput.style.fontWeight,
-                fontStyle: taskInput.style.fontStyle,
-                textDecoration: taskInput.style.textDecoration
-            };
-        });
-
-        // Store checklist state with Web Storage API
-        localStorage.setItem('checklist', JSON.stringify(items));
-    }
-
-
-    function loadChecklist() {
-        checklist.innerHTML = '';
-        // Retrieve checklist state with Web Storage API
-        const savedItems = JSON.parse(localStorage.getItem('checklist'));
-
-        if (savedItems) {
-            savedItems.forEach(({ checked, text, color, fontWeight, fontStyle, textDecoration }) => {
-                const newItem = document.createElement('div');
-                newItem.classList.add('checklist-item');
-                newItem.innerHTML = `
-                <input type="checkbox" class="checkbox" name="checkbox" ${checked ? 'checked' : ''}>
-                <input type="text" class="task-input" name="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
-                font-weight: ${fontWeight}; font-style: ${fontStyle}; text-decoration: ${textDecoration}" 
-                data-original-color="${color}">
-            `;
-                checklist.appendChild(newItem);
-            });
         }
     }
 
@@ -170,17 +170,21 @@ document.addEventListener('DOMContentLoaded', () => {
         topToolbar.style.display = 'block';
         bottomToolbar.style.display = 'block';
 
-        updateButtonStatus();
+        updateStyleButtonsStatus();
     }
 
 
-    function handleColorChange(e) {
-        activeTaskInput.style.color = window.getComputedStyle(e.target).backgroundColor;
-        saveChecklist();
+    function hideToolbar(e) {
+        if ((topToolbar.style.display === 'block' || bottomToolbar.style.display === 'block') &&
+            (!topToolbar.contains(e.target) && !bottomToolbar.contains(e.target) && e.target !== activeTaskInput) ||
+            e.type === 'keydown') {
+            topToolbar.style.display = 'none';
+            bottomToolbar.style.display = 'none';
+            activeTaskInput = null;
+        }
     }
-    document.querySelectorAll('.colour-button').forEach(button => {
-        button.addEventListener('click', handleColorChange);
-    });
+    document.addEventListener('click', hideToolbar);
+    document.addEventListener('keydown', hideToolbar);
 
 
     function highlight() {
@@ -196,8 +200,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // document.getElementById('highlight-colour-button').addEventListener('click', highlight);
 
 
+    // function updateTextButtonsStatus() {
+    //     var isActive = activeTaskInput.style.textDecoration.includes('variable');
+    //
+    //     // If style matches, make button background grey, otherwise, make it white
+    //     document.getElementById('text-colour-button').style.backgroundColor = isActive ? '#f7f7f7' : 'white';
+    //     document.getElementById('highlight-colour-button').style.backgroundColor = isActive ? '#f7f7f7' : 'white';
+    // }
+
+
     function handleStyleChange(e) {
         if (activeTaskInput && e.currentTarget.classList.contains('style-button')) {
+            // Uncheck the checkbox if it's currently checked
+            const checkbox = activeTaskInput.previousElementSibling;
+            if (checkbox && checkbox.type === 'checkbox' && checkbox.checked) {
+                checkbox.checked = false;
+                handleCheckboxChange({ target: checkbox });
+            }
+
             switch (e.currentTarget.id) {
                 case 'bold-button':
                     activeTaskInput.style.fontWeight = activeTaskInput.style.fontWeight === 'bold' ? 'normal' : 'bold';
@@ -209,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'underline' ? 'none' : 'underline';
                     break;
             }
-            updateButtonStatus();
+            updateStyleButtonsStatus();
             saveChecklist();
         }
     }
@@ -218,29 +238,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    function updateButtonStatus() {
+    function updateStyleButtonsStatus() {
         const isBold = activeTaskInput.style.fontWeight === 'bold';
         const isItalic = activeTaskInput.style.fontStyle === 'italic';
-        const isUnderline = activeTaskInput.style.textDecoration.includes('underline');
+        const isUnderline = activeTaskInput.style.textDecoration === 'underline';
 
         // If style matches, make button background grey, otherwise, make it white
-        document.getElementById('bold-button').style.backgroundColor = isBold ? '#E8E8E8' : 'white';
-        document.getElementById('italics-button').style.backgroundColor = isItalic ? '#E8E8E8' : 'white';
-        document.getElementById('underline-button').style.backgroundColor = isUnderline ? '#E8E8E8' : 'white';
+        document.getElementById('bold-button').style.backgroundColor = isBold ? '#f7f7f7' : 'white';
+        document.getElementById('italics-button').style.backgroundColor = isItalic ? '#f7f7f7' : 'white';
+        document.getElementById('underline-button').style.backgroundColor = isUnderline ? '#f7f7f7' : 'white';
     }
 
 
-    function hideToolbar(e) {
-        if ((topToolbar.style.display === 'block' || bottomToolbar.style.display === 'block') &&
-            (!topToolbar.contains(e.target) && !bottomToolbar.contains(e.target) && e.target !== activeTaskInput) ||
-            e.type === 'keydown') {
-            topToolbar.style.display = 'none';
-            bottomToolbar.style.display = 'none';
-            activeTaskInput = null;
-        }
+    function handleColorChange(e) {
+        activeTaskInput.style.color = window.getComputedStyle(e.target).backgroundColor;
+        saveChecklist();
     }
-    document.addEventListener('click', hideToolbar);
-    document.addEventListener('keydown', hideToolbar);
+    document.querySelectorAll('.colour-button').forEach(button => {
+        button.addEventListener('click', handleColorChange);
+    });
 
 
     window.onbeforeunload = function(e) {
