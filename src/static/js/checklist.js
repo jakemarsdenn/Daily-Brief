@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     taskInput.style.color = 'black';
                 }
             }
+            updateStyleButtonsStatus();
             saveChecklist();
         }
     }
@@ -232,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkbox.checked = false;
                 handleCheckboxChange({ target: checkbox });
             }
+            activeTaskInput.style.textDecoration = 'none'
 
             switch (e.currentTarget.id) {
                 case 'bold-button':
@@ -241,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     activeTaskInput.style.fontStyle = activeTaskInput.style.fontStyle === 'italic' ? 'normal' : 'italic';
                     break;
                 case 'underline-button':
-                    activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration === 'underline' ? 'none' : 'underline';
+                    activeTaskInput.style.textDecoration = activeTaskInput.style.textDecoration.trim().split(/\s+/)[0] === 'underline' ? 'none' : 'underline';
                     break;
             }
             updateStyleButtonsStatus();
@@ -256,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateStyleButtonsStatus() {
         const isBold = activeTaskInput.style.fontWeight === 'bold';
         const isItalic = activeTaskInput.style.fontStyle === 'italic';
-        const isUnderline = activeTaskInput.style.textDecoration === 'underline';
+        const isUnderline = activeTaskInput.style.textDecoration.trim().split(/\s+/)[0] === 'underline';
 
         // If style matches, make button background grey, otherwise, make it white
         document.getElementById('bold-button').style.backgroundColor = isBold ? '#f7f7f7' : 'white';
@@ -267,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleColorChange(e) {
         activeTaskInput.style.color = window.getComputedStyle(e.target).backgroundColor;
+        activeTaskInput.style.textDecorationColor = activeTaskInput.style.color;
         saveChecklist();
     }
     document.querySelectorAll('.colour-button').forEach(button => {
