@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const checklist = document.querySelector('.checklist');
-    const topToolbar = document.querySelector('.topToolbar');
-    const bottomToolbar = document.querySelector('.bottomToolbar');
+    const checklist = document.getElementById('checklist');
+    const topToolbar = document.getElementById('topToolbar');
+    const bottomToolbar = document.getElementById('bottomToolbar');
     let activeTaskInput = null;
+    let textOn;
+    let highlightOn;
 
     loadChecklist();
 
@@ -158,6 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         activeTaskInput = e.target;
 
+        textOn = false;
+        highlightOn = true;
+
         const taskInput = activeTaskInput;
         const checkbox = taskInput.previousElementSibling;
 
@@ -170,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         topToolbar.style.display = 'block';
         bottomToolbar.style.display = 'block';
 
+        toggleTextButtonsStatus();
         updateStyleButtonsStatus();
     }
 
@@ -187,8 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', hideToolbar);
 
 
+    function text() {
+        // implement functionality
+        toggleTextButtonsStatus();
+        saveChecklist();
+    }
+    document.getElementById('text-colour-button').addEventListener('click', text);
+
+
     function highlight() {
-        activeTaskInput.style.background = 'yellow';
+        // activeTaskInput.style.background = 'yellow';
+        toggleTextButtonsStatus();
         saveChecklist();
     }
     document.getElementById('highlight-colour-button').addEventListener('click', highlight);
@@ -200,13 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // document.getElementById('highlight-colour-button').addEventListener('click', highlight);
 
 
-    // function updateTextButtonsStatus() {
-    //     var isActive = activeTaskInput.style.textDecoration.includes('variable');
-    //
-    //     // If style matches, make button background grey, otherwise, make it white
-    //     document.getElementById('text-colour-button').style.backgroundColor = isActive ? '#f7f7f7' : 'white';
-    //     document.getElementById('highlight-colour-button').style.backgroundColor = isActive ? '#f7f7f7' : 'white';
-    // }
+    function toggleTextButtonsStatus() {
+        textOn = !textOn
+        highlightOn = !highlightOn
+
+        document.getElementById('text-colour-button').style.backgroundColor = textOn ? '#f7f7f7' : 'white';
+        document.getElementById('highlight-colour-button').style.backgroundColor = highlightOn ? '#f7f7f7' : 'white';
+    }
 
 
     function handleStyleChange(e) {
