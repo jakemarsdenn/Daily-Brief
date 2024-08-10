@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Restore the stored color and decoration when unchecked
                 taskInput.style.color = taskInput.dataset.originalColor || 'black';
                 taskInput.style.textDecoration = taskInput.dataset.originalDecoration || 'none';
+                activeTaskInput.style.textDecorationColor = activeTaskInput.style.color;
 
                 // Handle bug where grey stays grey
                 if (taskInput.style.color === 'rgb(128, 128, 128)') {
@@ -233,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkbox.checked = false;
                 handleCheckboxChange({ target: checkbox });
             }
-            activeTaskInput.style.textDecoration = 'none'
 
             switch (e.currentTarget.id) {
                 case 'bold-button':
