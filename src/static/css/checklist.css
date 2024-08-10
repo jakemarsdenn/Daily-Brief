@@ -59,26 +59,27 @@
 .colour-button {
     width: 24px;
     height: 24px;
-    border-radius: 8px;
-    margin-right: 5px;
+    border-radius: 7px;
+    margin-left: 2px;
+    margin-right: 2px;
     cursor: pointer;
-    border: none;
+    border: 0.14em solid;
 }
 
 .colour-button:hover {
-    border: 1px solid white;
+    transform: scale(1.05);
 }
 
-.color-black { background-color: rgb(35,37,41); }
-.color-grey { background-color: rgb(92,94,98); }
-.color-red { background-color: rgb(240,85,77); }
-.color-pink { background-color: rgb(227,79,121); }
-.color-orange { background-color: rgb(237,138,57); }
-.color-yellow { background-color: rgb(247,192,52); }
-.color-green { background-color: rgb(69,222,130); }
-.color-light-blue { background-color: rgb(80,194,242); }
-.color-dark-blue { background-color: rgb(48,102,240); }
-.color-purple { background-color: rgb(124,83,237); }
+.color-black { background-color: rgb(35,37,41); border-color: black; }
+.color-grey { background-color: rgb(92,94,98); border-color: rgb(70, 71, 74); }
+.color-red { background-color: rgb(240,85,77); border-color: rgb(217, 68, 61); }
+.color-pink { background-color: rgb(227,79,121); border-color: rgb(199, 56, 96); }
+.color-orange { background-color: rgb(237,138,57); border-color: rgb(209, 116, 40); }
+.color-yellow { background-color: rgb(247,192,52); border-color: rgb(235, 178, 35); }
+.color-green { background-color: rgb(69,222,130); border-color: rgb(47, 204, 110); }
+.color-light-blue { background-color: rgb(80,194,242); border-color: rgb(58, 175, 224); }
+.color-dark-blue { background-color: rgb(48,102,240); border-color: rgb(27, 82, 222); }
+.color-purple { background-color: rgb(124,83,237); border-color: rgb(100, 57, 219); }
 
 .button-icon {
     background-color: transparent;
@@ -114,24 +115,6 @@
     vertical-align: 0.2em;
 }
 
-#text-indicator {
-    background-color: white;
-    color: black;
-    font-family: var(--smooth), serif;
-    font-size: 18px;
-    font-weight: 100;
-    border: none;
-    vertical-align: 0.3em;
-    margin-left: 5px;
-    margin-right: 5px;
-    cursor: default;
-}
-
-#text-indicator::after {
-    content: '|';
-    color: lightgrey;
-    font-size: 25px;
-    vertical-align: -0.1em;
-    margin-left: 10px;
-    margin-right: 10px;
+.highlight {
+    background-color: yellow; /* Highlight color */
 }

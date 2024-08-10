@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newItem = document.createElement('div');
         newItem.classList.add('checklist-item');
         newItem.innerHTML = `
-            <input type="checkbox" class="checkbox">
-            <input type="text" class="task-input" placeholder="Task">
+            <input type="checkbox" class="checkbox" name="checkbox">
+            <input type="text" class="task-input" name="task-input" placeholder="Task">
         `;
         checklist.insertBefore(newItem, currentInput.parentElement.nextSibling);
         newItem.querySelector('.task-input').focus();
@@ -143,8 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newItem = document.createElement('div');
                 newItem.classList.add('checklist-item');
                 newItem.innerHTML = `
-                <input type="checkbox" class="checkbox" ${checked ? 'checked' : ''}>
-                <input type="text" class="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
+                <input type="checkbox" class="checkbox" name="checkbox" ${checked ? 'checked' : ''}>
+                <input type="text" class="task-input" name="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
                 font-weight: ${fontWeight}; font-style: ${fontStyle}; text-decoration: ${textDecoration}" 
                 data-original-color="${color}">
             `;
@@ -175,15 +175,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function handleColorChange(e) {
-        if (activeTaskInput && e.target.classList.contains('colour-button')) {
-            const selectedColor = window.getComputedStyle(e.target).backgroundColor;
-            activeTaskInput.style.color = selectedColor;
-            saveChecklist();
-        }
+        activeTaskInput.style.color = window.getComputedStyle(e.target).backgroundColor;
+        saveChecklist();
     }
     document.querySelectorAll('.colour-button').forEach(button => {
         button.addEventListener('click', handleColorChange);
     });
+
+
+    function highlight() {
+        activeTaskInput.style.background = 'yellow';
+        saveChecklist();
+    }
+    document.getElementById('highlight-colour-button').addEventListener('click', highlight);
+
+
+    // function highlight(text) {
+    //    activeTaskInput.value = activeTaskInput.value.replace('<span class="highlight">$&</span>');
+    // }
+    // document.getElementById('highlight-colour-button').addEventListener('click', highlight);
 
 
     function handleStyleChange(e) {
