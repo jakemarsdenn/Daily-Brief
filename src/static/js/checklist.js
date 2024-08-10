@@ -15,15 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedItems = JSON.parse(localStorage.getItem('checklist'));
 
         if (savedItems) {
-            savedItems.forEach(({ checked, text, color, fontWeight, fontStyle, textDecoration }) => {
+            savedItems.forEach(({ checked, text, color, backgroundColor, fontWeight, fontStyle, textDecoration}) => {
                 const newItem = document.createElement('div');
                 newItem.classList.add('checklist-item');
                 newItem.innerHTML = `
-                <input type="checkbox" class="checkbox" ${checked ? 'checked' : ''}>
-                <input type="text" class="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
-                font-weight: ${fontWeight}; font-style: ${fontStyle}; text-decoration: ${textDecoration}" 
-                data-original-color="${color}">
-            `;
+                    <input type="checkbox" class="checkbox" name="checkbox" ${checked ? 'checked' : ''}>
+                    <input type="text" class="task-input" name="task-input" placeholder="Task" value="${text}" 
+                    style="color: ${color}; background-color: ${backgroundColor}; font-weight: ${fontWeight}; 
+                    font-style: ${fontStyle}; text-decoration: ${textDecoration}" data-original-color="${color}">
+                `;
                 checklist.appendChild(newItem);
             });
         }
@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 checked: checkbox.checked,
                 text: taskInput.value,
                 color: taskInput.style.color,
+                backgroundColor: taskInput.style.backgroundColor,
                 fontWeight: taskInput.style.fontWeight,
                 fontStyle: taskInput.style.fontStyle,
                 textDecoration: taskInput.style.textDecoration
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Store the current color and decoration before making changes
                 taskInput.dataset.originalColor = window.getComputedStyle(taskInput).color;
                 taskInput.dataset.originalDecoration = window.getComputedStyle(taskInput).textDecoration;
+                console.log("original colour: " + taskInput.dataset.originalColor)
 
                 taskInput.style.textDecoration = 'line-through';
                 taskInput.style.color = '#AEB1B5';
@@ -134,13 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Restore the stored color and decoration when unchecked
                 taskInput.style.color = taskInput.dataset.originalColor || 'black';
                 taskInput.style.textDecoration = taskInput.dataset.originalDecoration || 'none';
-                activeTaskInput.style.textDecorationColor = activeTaskInput.style.color;
-
-                // Handle bug where grey stays grey
-                if (taskInput.style.color === 'rgb(128, 128, 128)') {
-                    taskInput.style.color = 'black';
-                }
             }
+
             updateStyleButtonsStatus();
             saveChecklist();
         }
@@ -169,8 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         activeTaskInput = e.target;
 
-        textOn = false;
-        highlightOn = true;
+        textOn = true;
+        highlightOn = false;
 
         const taskInput = activeTaskInput;
         const checkbox = taskInput.previousElementSibling;
@@ -203,31 +200,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function text() {
-        // implement functionality
-        toggleTextButtonsStatus();
-        saveChecklist();
+        if (!textOn) {
+            textOn = true;
+            highlightOn = false;
+            toggleTextButtonsStatus();
+        }
     }
     document.getElementById('text-colour-button').addEventListener('click', text);
 
 
     function highlight() {
-        // activeTaskInput.style.background = 'yellow';
-        toggleTextButtonsStatus();
-        saveChecklist();
+        if (!highlightOn) {
+            highlightOn = true;
+            textOn = false;
+            toggleTextButtonsStatus();
+        }
     }
     document.getElementById('highlight-colour-button').addEventListener('click', highlight);
 
 
-    // function highlight(text) {
-    //    activeTaskInput.value = activeTaskInput.value.replace('<span class="highlight">$&</span>');
-    // }
-    // document.getElementById('highlight-colour-button').addEventListener('click', highlight);
+    function highlightText(color) {
+        activeTaskInput.style.backgroundColor = color;
+    }
 
 
     function toggleTextButtonsStatus() {
-        textOn = !textOn
-        highlightOn = !highlightOn
-
         document.getElementById('text-colour-button').style.backgroundColor = textOn ? '#f7f7f7' : 'white';
         document.getElementById('highlight-colour-button').style.backgroundColor = highlightOn ? '#f7f7f7' : 'white';
     }
@@ -275,8 +272,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function handleColorChange(e) {
-        activeTaskInput.style.color = window.getComputedStyle(e.target).backgroundColor;
-        activeTaskInput.style.textDecorationColor = activeTaskInput.style.color;
+        // Change text colour
+        if (textOn) {
+            activeTaskInput.style.color = window.getComputedStyle(e.target).backgroundColor;
+            activeTaskInput.style.textDecorationColor = activeTaskInput.style.color;
+        }
+        // Change highlight colour
+        else {
+            highlightText(window.getComputedStyle(e.target).backgroundColor);
+        }
         saveChecklist();
     }
     document.querySelectorAll('.colour-button').forEach(button => {
