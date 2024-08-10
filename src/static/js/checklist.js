@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newItem = document.createElement('div');
                 newItem.classList.add('checklist-item');
                 newItem.innerHTML = `
-                <input type="checkbox" class="checkbox" name="checkbox" ${checked ? 'checked' : ''}>
-                <input type="text" class="task-input" name="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
-                font-weight: ${fontWeight}; font-style: ${fontStyle}; text-decoration: ${textDecoration}">
+                <input type="checkbox" class="checkbox" ${checked ? 'checked' : ''}>
+                <input type="text" class="task-input" placeholder="Task" value="${text}" style="color: ${color}; 
+                font-weight: ${fontWeight}; font-style: ${fontStyle}; text-decoration: ${textDecoration}" 
+                data-original-color="${color}">
             `;
                 checklist.appendChild(newItem);
             });
@@ -64,15 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function deleteChecklistItem(currentInput) {
         const currentItem = currentInput.parentElement;
         const previousItem = currentItem.previousElementSibling;
+        const nextItem = currentItem.nextElementSibling;
 
-        if (previousItem) {
-            const previousInput = previousItem.querySelector('.task-input');
-            previousInput.focus();
-            previousInput.setSelectionRange(previousInput.value.length, previousInput.value.length);
-        }
         if (checklist.children.length > 1) {
             currentItem.remove();
             saveChecklist();
+        }
+        if (nextItem) {
+            const nextInput = nextItem.querySelector('.task-input');
+            nextInput.focus();
+            nextInput.setSelectionRange(nextInput.value.length, nextInput.value.length);
+        } else if (previousItem) {
+            // If the deleted item was the first item, move focus to the previous item
+            const previousInput = previousItem.querySelector('.task-input');
+            previousInput.focus();
+            previousInput.setSelectionRange(previousInput.value.length, previousInput.value.length);
         }
     }
 
