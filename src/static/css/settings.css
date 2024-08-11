@@ -1,0 +1,24 @@
+#settings-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 50px;
+    margin-left: 70px;
+}
+
+#settings-panel {
+    position: absolute;
+    background-color: white;
+    top: 130px;
+    left: 70px;
+    height: 600px;
+    width: 400px;
+    padding: 10px;
+    border-style: solid;
+    border-color: #e0e0e0;
+    border-width: thin;
+    border-radius: 12px;
+    box-shadow: 4px 4px 10px #c5c5c5, -6px -6px 12px #ffffff;
+    display: flex;
+    align-items: center;
+}

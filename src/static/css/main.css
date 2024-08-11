@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --blocky: 'Space Grotesk', sans-serif;
     --smooth: 'Metropolis', sans-serif;
@@ -25,12 +29,4 @@ header {
     left: 0;
     width: 100%;
     display: flex;
-}
-
-#home-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin-top: 50px;
-    margin-left: 70px;
 }

@@ -292,7 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateProgressBar() {
         const items = checklist.children.length;
-        const checkedItems = Array.from(checklist.children).filter(item => item.querySelector('.checkbox').checked).length;
+        const checkedItems = Array.from(checklist.children).filter(item =>
+            item.querySelector('.checkbox').checked).length;
         const progressBar = document.getElementById('progress-bar');
         progressBar.value = checkedItems;
         progressBar.max = items;

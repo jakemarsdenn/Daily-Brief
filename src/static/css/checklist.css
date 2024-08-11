@@ -64,17 +64,18 @@
 #progress-bar::-webkit-progress-value {
     border-radius: 12px;
     background-color: #4caf50;
+    transition: width 0.5s ease;
 }
 
 #progress-bar::-moz-progress-bar {
     border-radius: 12px;
     background-color: #4caf50;
+    transition: width 0.5s ease;
 }
 
 .toolbar {
     position: absolute;
     background-color: white;
-    padding: 8px 10px 12px 10px;
     border-style: solid;
     border-color: #e0e0e0;
     border-width: thin;
@@ -86,11 +87,11 @@
 }
 
 #topToolbar {
-    padding: 8px 10px 12px 10px;
+    padding: 12px 12px 14px 12px;
 }
 
 #bottomToolbar {
-    padding: 12px;
+    padding: 14px;
 }
 
 /*Top toolbar*/
@@ -99,11 +100,11 @@
     color: black;
     font-family: var(--smooth), serif;
     font-size: 18px;
-    font-weight: 100;
+    font-weight: 500;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    padding: 0.4em;
+    padding: 5px;
     margin-left: 5px;
     margin-right: 5px;
     vertical-align: 0.2em;
@@ -132,9 +133,9 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    padding: 0.35em;
+    padding: 8px 10px 4px 10px;
     box-sizing: border-box;
-    margin-top: -10px;
+    margin-top: -4px;
 }
 
 .button-icon {
