@@ -127,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Store the current color and decoration before making changes
                 taskInput.dataset.originalColor = window.getComputedStyle(taskInput).color;
                 taskInput.dataset.originalDecoration = window.getComputedStyle(taskInput).textDecoration;
-                console.log("original colour: " + taskInput.dataset.originalColor)
 
                 taskInput.style.textDecoration = 'line-through';
                 taskInput.style.color = '#AEB1B5';
@@ -264,9 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function updateStyleButtonsStatus() {
-        const isBold = activeTaskInput.style.fontWeight === 'bold';
-        const isItalic = activeTaskInput.style.fontStyle === 'italic';
-        const isUnderline = activeTaskInput.style.textDecoration.trim().split(/\s+/)[0] === 'underline';
+        const isBold = activeTaskInput ? activeTaskInput.style.fontWeight === 'bold' : false;
+        const isItalic = activeTaskInput ? activeTaskInput.style.fontStyle === 'italic' : false;
+        const isUnderline = activeTaskInput
+            ? activeTaskInput.style.textDecoration.trim().split(/\s+/)[0] === 'underline'
+            : false;
 
         // If style matches, make button background grey, otherwise, make it white
         document.getElementById('bold-button').style.backgroundColor = isBold ? '#f7f7f7' : 'white';
