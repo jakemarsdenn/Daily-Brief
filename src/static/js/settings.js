@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSettingsPanel(e) {
         e.preventDefault();
         e.stopPropagation();
+        document.dispatchEvent(new CustomEvent('hideToolbar'));
 
         settingsPanel.style.display = "block";
-        console.log("show");
     }
     settingsButton.addEventListener('click', showSettingsPanel);
 
@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideSettingsPanel(e) {
         if (!settingsPanel.contains(e.target) && e.target !== settingsButton) {
             settingsPanel.style.display = "none";
-            console.log("hide");
         }
     }
     document.addEventListener('click', hideSettingsPanel);

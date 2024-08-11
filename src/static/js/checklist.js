@@ -198,6 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.addEventListener('click', hideToolbar);
     document.addEventListener('keydown', hideToolbar);
+    // Custom event when settings panel is opened
+    document.addEventListener('hideToolbar', hideToolbar);
 
 
     function text() {
