@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedItems = JSON.parse(localStorage.getItem('checklist'));
 
         if (savedItems) {
-            savedItems.forEach(({ checked, text, color, backgroundColor, fontWeight, fontStyle, textDecoration}) => {
+            savedItems.forEach(({ checked, text, color, originalColor, backgroundColor, fontWeight, fontStyle, textDecoration}) => {
                 const newItem = document.createElement('div');
                 newItem.classList.add('checklist-item');
                 newItem.innerHTML = `
                     <input type="checkbox" class="checkbox" name="checkbox" ${checked ? 'checked' : ''}>
                     <input type="text" class="task-input" name="task-input" placeholder="Task" value="${text}" 
                     style="color: ${color}; background-color: ${backgroundColor}; font-weight: ${fontWeight}; 
-                    font-style: ${fontStyle}; text-decoration: ${textDecoration}" data-original-color="${color}">
+                    font-style: ${fontStyle}; text-decoration: ${textDecoration}" data-original-color="${originalColor}">
                 `;
                 checklist.appendChild(newItem);
             });
@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 checked: checkbox.checked,
                 text: taskInput.value,
                 color: taskInput.style.color,
+                originalColor: taskInput.dataset.originalColor,
                 backgroundColor: taskInput.style.backgroundColor,
                 fontWeight: taskInput.style.fontWeight,
                 fontStyle: taskInput.style.fontStyle,
@@ -129,11 +130,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 taskInput.dataset.originalDecoration = window.getComputedStyle(taskInput).textDecoration;
 
                 taskInput.style.textDecoration = 'line-through';
-                taskInput.style.color = '#AEB1B5';
+                taskInput.style.color = 'rgb(128, 128, 128)';
 
             } else {
                 // Restore the stored color and decoration when unchecked
-                taskInput.style.color = taskInput.dataset.originalColor || 'black';
+                if (taskInput.dataset.originalColor === 'rgb(128, 128, 128)'){
+                    taskInput.style.color = 'rgb(35, 37, 41)'
+                }
+                else {
+                    taskInput.style.color = taskInput.dataset.originalColor;
+                }
                 taskInput.style.textDecoration = taskInput.dataset.originalDecoration || 'none';
             }
 
