@@ -1,7 +1,13 @@
 window.addEventListener("DOMContentLoaded", function() {
-    animateTitle();
+    const enableAnimation = localStorage.getItem("animationEnabled") !== "false";
+    if (enableAnimation) {
+        animateTitle();
+    } else {
+        showTitleImmediately();
+    }
     displayLocalDate();
 });
+
 
 function animateTitle() {
     const text = document.getElementById("title");
@@ -15,6 +21,14 @@ function animateTitle() {
         text.appendChild(span);
     });
 }
+
+
+function showTitleImmediately() {
+    const text = document.getElementById("title");
+    text.style.color = 'black'
+    text.style.display='block';
+}
+
 
 function displayLocalDate() {
     const dateElement = document.getElementById("date");
