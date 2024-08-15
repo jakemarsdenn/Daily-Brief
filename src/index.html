@@ -10,17 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/metropolis-2" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="static/css/main.css">
     <link rel="stylesheet" href="static/css/title.css">
     <link rel="stylesheet" href="static/css/checklist.css">
+    <link rel="stylesheet" href="static/css/settings.css">
     <title>Daily Brief</title>
 </head>
 
 <body>
     <header>
-        <a id="home-button" href="settings.html">
+        <button id="settings-button">
             <img src="static/media/home-button.png" alt="" width="68" height="25">
-        </a>
+        </button>
     </header>
 
     <div id="title">Daily Brief</div>
@@ -37,7 +39,7 @@
         </div>
     </div>
 
-    <div class="toolbar" id="topToolbar" style="display: none;">
+    <div class="toolbar" id="top-toolbar" style="display: none;">
         <button class="text-button" id="text-colour-button">Text</button>
         <button class="text-button" id="highlight-colour-button">Highlight</button>
         <button class="style-button" id="bold-button">
@@ -57,7 +59,7 @@
         </button>
     </div>
 
-    <div class="toolbar" id="bottomToolbar" style="display: none;">
+    <div class="toolbar" id="bottom-toolbar" style="display: none;">
         <button class="colour-button color-black"></button>
         <button class="colour-button color-grey"></button>
         <button class="colour-button color-red"></button>
@@ -70,8 +72,21 @@
         <button class="colour-button color-purple"></button>
     </div>
 
+    <div id="settings-panel" style="display: none;">
+        <div id="upload-container">
+            <span>Upload Background Image</span>
+            <label for="upload-image-button" id="upload-image-btn">Choose File</label>
+            <input type="file" id="upload-image-button" accept="image/*">
+            <br>
+            <button id="remove-image-button">
+                <span class="material-symbols-outlined" id="remove-image-icon">delete</span>
+            </button>
+        </div>
+    </div>
+
     <script src="static/js/title.js" defer></script>
     <script src="static/js/checklist.js"></script>
+    <script src="static/js/settings.js" defer></script>
 </body>
 
 </html>
