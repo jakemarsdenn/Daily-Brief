@@ -73,14 +73,23 @@
     </div>
 
     <div id="settings-panel" style="display: none;">
-        <div id="container">
-            <span>Upload Background Image</span>
+        <div class="container">
+            <span class="container-title">Upload Background Image</span>
             <div id="upload-buttons">
                 <label for="upload-image-button" id="upload-image-btn">Choose File</label>
                 <input type="file" id="upload-image-button" accept="image/*">
                 <button id="remove-image-button">
                     <span class="material-symbols-outlined" id="remove-image-icon">delete</span>
                 </button>
+            </div>
+        </div>
+        <div class="container">
+            <span class="container-title">Toggle Title Animation</span>
+            <div class="switch-container">
+                <input type="checkbox" class="switch-checkbox" id="checkbox">
+                <label class="switch" for="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
         </div>
     </div>

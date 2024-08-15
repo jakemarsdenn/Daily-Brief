@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageUploadButton = document.getElementById("upload-image-button")
     const removeImageButton = document.getElementById("remove-image-button")
 
+    const checkbox = document.getElementById("checkbox");
+    checkbox.checked = localStorage.getItem("animationEnabled") !== "false";
+
     loadBackgroundImage();
 
 
@@ -48,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function loadBackgroundImage() {
-        const storedImage = localStorage.getItem('backgroundImage');
+        const storedImage = localStorage.getItem('backgroundImage') || null;
         if (storedImage) {
             document.body.style.backgroundImage = `url('${storedImage}')`;
             console.log("image is stored")
@@ -67,4 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     removeImageButton.addEventListener('click', removeBackgroundImage);
 
+
+    function toggleAnimation(e) {
+        const isChecked = e.target.checked;
+        localStorage.setItem("animationEnabled", isChecked);
+    }
+    checkbox.addEventListener('click', toggleAnimation);
 });
