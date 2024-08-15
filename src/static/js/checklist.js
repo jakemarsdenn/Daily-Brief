@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const checklist = document.getElementById('checklist');
-    const topToolbar = document.getElementById('topToolbar');
-    const bottomToolbar = document.getElementById('bottomToolbar');
+    const topToolbar = document.getElementById('top-toolbar');
+    const bottomToolbar = document.getElementById('bottom-toolbar');
     let activeTaskInput = null;
     let textOn;
     let highlightOn;

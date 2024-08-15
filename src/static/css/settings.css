@@ -11,7 +11,7 @@
     background-color: white;
     top: 130px;
     left: 70px;
-    height: 600px;
+    height: 500px;
     width: 400px;
     padding: 10px;
     border-style: solid;
@@ -21,4 +21,48 @@
     box-shadow: 4px 4px 10px #c5c5c5, -6px -6px 12px #ffffff;
     display: flex;
     align-items: center;
+}
+
+#upload-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: var(--smooth), serif;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#upload-image-btn {
+    font-family: var(--smooth), serif;
+    font-size: 14px;
+    font-weight: 100;
+    background-color: #4287f5;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+#remove-image-button {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+#remove-image-icon {
+    background-color: transparent;
+    width: 1em;
+    height: 1.1em;
+    pointer-events: none;
 }

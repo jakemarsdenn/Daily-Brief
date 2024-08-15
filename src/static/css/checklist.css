@@ -86,11 +86,11 @@
     height: 25px;
 }
 
-#topToolbar {
+#top-toolbar {
     padding: 12px 12px 14px 12px;
 }
 
-#bottomToolbar {
+#bottom-toolbar {
     padding: 14px;
 }
 
@@ -126,10 +126,6 @@
 
 .style-button {
     background-color: white;
-    color: black;
-    font-family: var(--smooth), serif;
-    font-size: 18px;
-    font-weight: 100;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -140,8 +136,8 @@
 
 .button-icon {
     background-color: transparent;
-    width: 1.1em;
-    height: 1.1em;
+    width: 1.5em;
+    height: 1.5em;
     pointer-events: none;
 }
 
